@@ -1,0 +1,39 @@
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Python / Virtual Environment
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+env/
+venv/
+*.egg-info/
+dist/
+build/
+*.db
+*.sqlite3
+projectx.db
+
+# Node / Frontend
+node_modules/
+.next/
+out/
+build/
+.turbo/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Reference Repos (temporary)
+.reference-repos/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,95 @@
+{
+  "registry_version": "1.0.0",
+  "last_trained": "2026-10-03T04:05:42.131880Z",
+  "system": "AERIS Operational Decision-Support (SIH 2026 PS ID: 26250)",
+  "dataset_notice": "Synthetically generated air operations operational wear and logistics records for decision support simulation.",
+  "models": {
+    "aircraft_degradation": {
+      "artifact_file": "aircraft_degradation_rf.joblib",
+      "model_type": "RandomForestRegressor",
+      "framework": "scikit-learn",
+      "features": [
+        "curr_readiness",
+        "engine_health",
+        "engine_temperature",
+        "flight_hours"
+      ],
+      "target": "predicted_readiness_60m",
+      "n_samples": 1200,
+      "metrics": {
+        "mae": 1.2431,
+        "rmse": 1.6147,
+        "r2_score": 0.9857
+      },
+      "feature_importances": {
+        "curr_readiness": 0.9205,
+        "engine_health": 0.0187,
+        "engine_temperature": 0.0596,
+        "flight_hours": 0.0012
+      }
+    },
+    "fleet_readiness_forecaster": {
+      "artifact_file": "fleet_readiness_rf.joblib",
+      "model_type": "Dict[str, RandomForestRegressor]",
+      "framework": "scikit-learn",
+      "features": [
+        "curr_readiness",
+        "ac_ready_ratio",
+        "crew_avail_ratio",
+        "res_health",
+        "weather_index",
+        "constraints_count"
+      ],
+      "horizons": [
+        "24h",
+        "48h",
+        "72h"
+      ],
+      "n_samples": 1000,
+      "metrics": {
+        "24h": {
+          "target": "projected_readiness_24h",
+          "mae": 1.0693,
+          "rmse": 1.3354,
+          "r2_score": 0.9892,
+          "feature_importances": {
+            "curr_readiness": 0.9868,
+            "ac_ready_ratio": 0.0,
+            "crew_avail_ratio": 0.0,
+            "res_health": 0.0,
+            "weather_index": 0.0002,
+            "constraints_count": 0.0129
+          }
+        },
+        "48h": {
+          "target": "projected_readiness_48h",
+          "mae": 1.8039,
+          "rmse": 2.2653,
+          "r2_score": 0.9715,
+          "feature_importances": {
+            "curr_readiness": 0.9401,
+            "ac_ready_ratio": 0.0003,
+            "crew_avail_ratio": 0.0002,
+            "res_health": 0.0043,
+            "weather_index": 0.0001,
+            "constraints_count": 0.0551
+          }
+        },
+        "72h": {
+          "target": "projected_readiness_72h",
+          "mae": 2.2949,
+          "rmse": 2.8784,
+          "r2_score": 0.9574,
+          "feature_importances": {
+            "curr_readiness": 0.8867,
+            "ac_ready_ratio": 0.0057,
+            "crew_avail_ratio": 0.0009,
+            "res_health": 0.0004,
+            "weather_index": 0.0004,
+            "constraints_count": 0.1058
+          }
+        }
+      }
+    }
+  }
+}

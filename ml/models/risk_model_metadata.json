@@ -1,0 +1,62 @@
+{
+  "model_name": "AERIS Operational Risk Classifier",
+  "problem_statement": "SIH 2026 PS ID 26250 \u2014 Dynamic Air Operations & Resource Optimisation",
+  "algorithm": "RandomForestClassifier",
+  "framework": "scikit-learn",
+  "n_samples": 2500,
+  "test_size": 500,
+  "metrics": {
+    "accuracy": 0.972,
+    "f1_weighted": 0.9748,
+    "per_class": {
+      "LOW": {
+        "precision": 0.9868,
+        "recall": 0.9804,
+        "f1_score": 0.9836,
+        "support": 306.0
+      },
+      "MEDIUM": {
+        "precision": 0.4737,
+        "recall": 0.75,
+        "f1_score": 0.5806,
+        "support": 12.0
+      },
+      "HIGH": {
+        "precision": 1.0,
+        "recall": 0.9725,
+        "f1_score": 0.9861,
+        "support": 182.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        300,
+        6,
+        0
+      ],
+      [
+        3,
+        9,
+        0
+      ],
+      [
+        1,
+        4,
+        177
+      ]
+    ]
+  },
+  "feature_importances": {
+    "fuel_level": 0.1938,
+    "fuel_consumption_rate": 0.0206,
+    "engine_temperature": 0.385,
+    "engine_health": 0.0547,
+    "aircraft_health": 0.0384,
+    "mission_priority": 0.0359,
+    "operational_condition": 0.0059,
+    "maintenance_state": 0.2407,
+    "operational_load": 0.0251
+  },
+  "artifact_path": "ml/models/operational_risk_rf.joblib",
+  "last_trained": "2026-10-04T05:12:47.527366Z"
+}
