@@ -16,6 +16,12 @@ def get_engine():
         is_sqlite = settings.database_url.startswith("sqlite")
         connect_args = {"check_same_thread": False} if is_sqlite else {}
         _engine = create_engine(settings.database_url, connect_args=connect_args)
+        if is_sqlite and _engine.url.database and _engine.url.database != ":memory:":
+            try:
+                from pathlib import Path
+                Path(_engine.url.database).resolve().parent.mkdir(parents=True, exist_ok=True)
+            except Exception:
+                pass
         _SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=_engine)
     return _engine
 

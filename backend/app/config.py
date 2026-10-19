@@ -13,8 +13,14 @@ if sys.platform == "win32":
     except Exception:
         pass
 
+def _get_default_database_url() -> str:
+    # On Vercel / serverless runtime, the filesystem is read-only; use /tmp for writable SQLite demo storage
+    if os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+        return "sqlite:////tmp/projectx.db"
+    return "sqlite:///./projectx.db"
+
 class Settings(BaseSettings):
-    database_url: str = os.getenv("DATABASE_URL", "sqlite:///./projectx.db")
+    database_url: str = os.getenv("DATABASE_URL", _get_default_database_url())
     jwt_secret: str = os.getenv("JWT_SECRET", "projectx-dynamic-air-operations-secret-key-2026")
     demo_mode: bool = os.getenv("DEMO_MODE", "true").lower() in ("true", "1", "yes")
     cors_origins: list[str] = [
